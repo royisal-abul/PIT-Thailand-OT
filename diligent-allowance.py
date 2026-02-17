@@ -30,7 +30,7 @@ for inp in payslip.input_line_ids:
 has_late = late > 0.0
 
 # ---- 2) LEAVE (exclude Annual Leave by type id) ----
-Leave = env["hr.leave"]
+Leave = payslip.env["hr.leave"]
 domain = [
     ("employee_id", "=", employee.id),
     ("state", "=", "validate"),
@@ -51,7 +51,7 @@ for lv in leaves:
 eligible = (not has_late) and (not has_blocking_leave)
 
 # ---- 3) Probation using Permanent Date on contract ----
-permanent_date = contract.x_studio_permanent_date  # your field name
+permanent_date = contract.x_studio_date_field_12b_1jhj14dr0  # your field name
 in_probation = bool(permanent_date and (date_to < permanent_date))  # before permanent date = probation
 
 # ---- RESULT ----
@@ -61,4 +61,5 @@ else:
     if in_probation:
         result = 300.0
     else:
-        result = step_amounts.get(step, 300.0)
+        result = 300.0
+#step_amounts.get(step, 300.0)
